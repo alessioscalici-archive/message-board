@@ -3,15 +3,25 @@ angular.module('Main').config(function ($stateProvider, $urlRouterProvider, T_MA
 	
 
 	$urlRouterProvider
-		.otherwise("/meta");
+		.otherwise("/login");
 
 
 	$stateProvider
 		.state('meta', {
 			url: "/meta",
-			templateUrl: T_MAIN.SAMPLE_META,
+			templateUrl: T_MAIN.MESSAGES_META,
 			controller: 'MetaCtrl'
 		})
+    .state('login', {
+      url: "/login",
+      templateUrl: T_MAIN.LOGIN_LOGIN,
+      controller: 'LoginCtrl'
+    })
+    .state('messages', {
+      url: "/messages",
+      templateUrl: T_MAIN.MESSAGES_MESSAGES,
+      controller: 'MessagesCtrl'
+    })
 	;
 
 

@@ -1,0 +1,10 @@
+
+
+#login-view
+
+  form#login-box(name='loginForm' ng-submit='loginForm.$valid && login()')
+    h1 Login
+    .input-container
+      input(type='text' ng-model='loginData.username' placeholder='user name')
+      input(type='password' ng-model='loginData.password' placeholder='password')
+    button#login-btn(type='submit') Login

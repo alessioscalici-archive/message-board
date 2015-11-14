@@ -25,11 +25,15 @@
         "body": {
           "dev": [
             "angular/angular.js",
-            "angular-ui-router/release/angular-ui-router.js"
+            "angular-resource/angular-resource.js",
+            "angular-ui-router/release/angular-ui-router.js",
+            "ngstorage/ngStorage.js"
           ],
           "prod": [
             "angular/angular.min.js",
-            "angular-ui-router/release/angular-ui-router.min.js"
+            "angular-resource/angular-resource.min.js",
+            "angular-ui-router/release/angular-ui-router.min.js",
+            "ngstorage/ngStorage.min.js"
           ]
         },
         "async": {

@@ -12,9 +12,12 @@
  * 
  */
 angular.module('Main', [
-    '_meta', // auto-generated constant with development metadata
-    'ui.router',
+  '_meta', // auto-generated constant with development metadata
+  'ngResource',
+  'ui.router',
+  'ngStorage',
 
-    'messages' // the message board module
+  'login',
+  'messages'
 ]);
 

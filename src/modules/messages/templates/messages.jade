@@ -1,0 +1,5 @@
+#messages-view
+  h1 Users
+  spinner#users-spinner(start-visible='true')
+  ul
+    li(ng-repeat='user in users') {{user.username}}

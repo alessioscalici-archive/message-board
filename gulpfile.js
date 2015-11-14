@@ -240,9 +240,12 @@ var task = {
 
 
     sass : function(){
+
         return gulp.src('src/modules/**/*.@(css|scss)')
             .pipe(plumber())
-            .pipe(sass())
+            .pipe(sass({
+              includePaths: require('node-bourbon').includePaths
+            }))
             .pipe(plumber.stop())
             .pipe(gulp.dest('build/modules'));
     },

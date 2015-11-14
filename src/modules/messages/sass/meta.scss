@@ -1,3 +1,5 @@
+@import 'bourbon';
+
 #meta-templ {
-    background : grey
+  @include linear-gradient(to top, red, orange);
 }

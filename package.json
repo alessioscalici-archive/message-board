@@ -48,6 +48,7 @@
     "karma-junit-reporter": "^0.3.8",
     "karma-phantomjs-launcher": "^0.2.1",
     "merge-stream": "^1.0.0",
+    "node-bourbon": "^4.2.3",
     "phantomjs": "^1.9.18",
     "plato": "^1.5.0",
     "protractor": "^2.5.1",
@@ -66,5 +67,16 @@
     "e2e": "protractor e2e-tests/conf/local.conf.js",
     "postinstall": "bower install",
     "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "express-paginate": "0.0.8",
+    "lodash": "^3.10.1",
+    "nedb": "^1.4.0",
+    "oauth2-server": "^2.4.1",
+    "sha1": "^1.1.1",
+    "ws": "^0.8.0"
   }
 }
