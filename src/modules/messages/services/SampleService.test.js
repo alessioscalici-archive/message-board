@@ -8,7 +8,7 @@ describe('SampleService', function () {
   'use strict';
 
 
-  beforeEach(module('sample'));
+  beforeEach(module('Main'));
 
 
   /*

@@ -1,6 +1,6 @@
 /**
  * @ngdoc service
- * @name sample.service:SampleService
+ * @name messages.service:SampleService
  *
  * @requires $log
  * @requires $q
@@ -10,7 +10,7 @@
  * This is a sample service to show documentation comments, unit-test and integration-test
  */
 
-angular.module('sample').service('SampleService', function($log, $q){
+angular.module('messages').service('SampleService', function($log, $q){
   "use strict";
   var me = {
 
@@ -18,7 +18,7 @@ angular.module('sample').service('SampleService', function($log, $q){
     /**
      * @ngdoc property
      * @name aProperty
-     * @propertyOf sample.service:SampleService
+     * @propertyOf messages.service:SampleService
      *
      * @type {string}
      *
@@ -33,7 +33,7 @@ angular.module('sample').service('SampleService', function($log, $q){
     /**
      * @ngdoc method
      * @name sampleMethod
-     * @methodOf sample.service:SampleService
+     * @methodOf messages.service:SampleService
      * 
      * @description
      * 

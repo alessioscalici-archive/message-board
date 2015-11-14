@@ -8,13 +8,13 @@
  *
  * @requires _meta
  * @requires ui.router
- * @requires sample
+ * @requires messages
  * 
  */
 angular.module('Main', [
     '_meta', // auto-generated constant with development metadata
     'ui.router',
 
-    'sample' // the sample module
+    'messages' // the message board module
 ]);
 

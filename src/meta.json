@@ -1,10 +1,10 @@
 {
-  "version": "0.0.0",
-  "name": "ui-base",
-  "description": "A build configuration for Angular 1.3.x projects",
+  "version": "0.0.1",
+  "name": "message-board",
+  "description": "A simple message board application",
   "license": "MIT",
-  "homepage": "https://github.com/sefvef/ui-base",
-  "repository": "https://github.com/sefvef/ui-base",
+  "homepage": "https://github.com/alessioscalici/message-board",
+  "repository": "https://github.com/alessioscalici/message-board",
   "apps": [
     {
       "module": "Main",
@@ -21,30 +21,6 @@
             "html5-boilerplate/css/main.css",
             "html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"
           ]
-        },
-        "body": {
-          "dev": [
-            "angular/angular.js",
-            "angular-ui-router/release/angular-ui-router.js"
-          ],
-          "prod": [
-            "angular/angular.min.js",
-            "angular-ui-router/release/angular-ui-router.min.js"
-          ]
-        },
-        "async": {
-          "dev": [],
-          "prod": []
-        }
-      }
-    },
-    {
-      "module": "Test",
-      "index": "test/index.html",
-      "vendor": {
-        "head": {
-          "dev": [],
-          "prod": []
         },
         "body": {
           "dev": [

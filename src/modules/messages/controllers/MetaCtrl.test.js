@@ -3,7 +3,7 @@ describe('MetaCtrl', function () {
 
     var scope;
 
-    beforeEach(module('sample'));
+    beforeEach(module('Main'));
 
     beforeEach(inject(function ($controller, $rootScope) {
         scope = $rootScope.$new();

@@ -7,12 +7,10 @@ var gulp = require('gulp-param')(require('gulp'), process.argv),
     glob = require('glob'),
     _ = require('underscore'),
     inject = require('gulp-inject'),
-    less = require('gulp-less'),
+    sass = require('gulp-sass'),
     buster = require('gulp-buster'),
     replace = require('gulp-replace'),
     del = require('del'),
-    watch = require('gulp-watch'),
-    karma = require('gulp-karma'),
     plato = require('plato'),
     jshint = require('gulp-jshint'),
     jscs = require('gulp-jscs'),
@@ -29,7 +27,8 @@ var gulp = require('gulp-param')(require('gulp'), process.argv),
     watch = require('gulp-watch'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
-    jade = require('gulp-jade')
+    jade = require('gulp-jade'),
+    KarmaServer = require('karma').Server
     ;
 
 
@@ -80,7 +79,9 @@ var injectIntoIndex = function(srcArray, starttag, targetFile, hashes) {
 };
 
 
+// =========================== MODULE DEPENDENDENCIES =========================== //
 
+var moduledepMap = {};
 
 var getModuleDirectDependencies = function(moduleName){
     var getArray = function (node) {
@@ -102,7 +103,7 @@ var getModuleDirectDependencies = function(moduleName){
     return getArray(tree);
 };
 
-var moduledepMap = {};
+
 var getModuleDependencies = function(moduleName){
 
     if (moduledepMap[moduleName])
@@ -237,14 +238,11 @@ var task = {
             .pipe(gulp.dest('build/assets'));
     },
 
-    cleanLess : function(){
-        return del.sync(['build/modules/**/*.@(css|less)']);
-    },
 
-    less : function(){
-        return gulp.src('src/modules/**/*.@(css|less)')
+    sass : function(){
+        return gulp.src('src/modules/**/*.@(css|scss)')
             .pipe(plumber())
-            .pipe(less())
+            .pipe(sass())
             .pipe(plumber.stop())
             .pipe(gulp.dest('build/modules'));
     },
@@ -504,7 +502,7 @@ var task = {
         return forEachApp(process);
     },
 
-    karma : function () {
+    karma : function (done) {
 
 
         var process = function (app) {
@@ -554,15 +552,36 @@ var task = {
 
 
             // Be sure to return the stream
-            return gulp.src(testFiles, {read:false})
-                .pipe(karma({
-                    configFile: 'karma/' + app.module + '.conf.js',
-                    action: 'run'
-                }))
-                .on('error', function(err) {
-                    // Make sure failed tests cause gulp to exit non-zero
-                    throw err;
-                });
+            return new KarmaServer({
+
+              basePath : './',
+              files: testFiles,
+              frameworks: ['jasmine'],
+              browsers : ['PhantomJS'],
+              reporters : ['dots','coverage'],
+              plugins : [
+                'karma-chrome-launcher',
+                'karma-firefox-launcher',
+                'karma-phantomjs-launcher',
+                'karma-jasmine',
+                'karma-junit-reporter',
+                'karma-coverage'
+              ],
+              preprocessors: {
+                'src/modules/**/!(*.test).js': ['coverage'] // all non-test files in feat folder
+              },
+              junitReporter : {
+                outputFile: 'test_out/unit.xml',
+                suite: 'unit'
+              },
+              coverageReporter: {
+                type : 'html',
+                dir : './report',
+                subdir : 'coverage',
+                includeAllSources: true
+              },
+              singleRun: true
+            }, done).start();
 
         };
 
@@ -579,16 +598,16 @@ var task = {
 gulp.task('clean', ['jshint'], task.clean);
 gulp.task('vendor', ['clean'], task.vendor);
 gulp.task('assets', ['clean'], task.assets);
-gulp.task('less', ['clean'], task.less);
+gulp.task('sass', ['clean'], task.sass);
 gulp.task('js', ['clean'], task.js);
 gulp.task('template-list', ['js'], task.templateList);
 gulp.task('templates', ['clean'], task.templates);
-gulp.task('index', ['vendor', 'assets', 'less', 'templates', 'meta', 'template-list', 'js'], task.index);
+gulp.task('index', ['vendor', 'assets', 'sass', 'templates', 'meta', 'template-list', 'js'], task.index);
 
 gulp.task('meta', ['js'], task.meta);
 gulp.task('meta-align', ['js'], task.metaAlign);
 
-gulp.task('build', ['clean', 'index', 'vendor', 'less', 'templates', 'template-list', 'js']);
+gulp.task('build', ['clean', 'index', 'vendor', 'sass', 'templates', 'template-list', 'js']);
 gulp.task('dev', ['build', 'meta-align', 'ngdoc', 'plato'], task.karma);
 
 
@@ -714,10 +733,10 @@ gulp.task('jshint', function() {
 gulp.task('watch', ['build'], function(){
 
 
-    watch('src/**/*.less', function(){
+    watch('src/**/*.scss', function(){
         try {
-            //    task.cleanLess();
-            task.less()
+
+            task.sass()
                 .on('end', task.index);
         } catch (e) {
             console.log(e);
@@ -727,10 +746,7 @@ gulp.task('watch', ['build'], function(){
 
     watch('src/modules/**/*.js', function(){
         try {
-            // task.cleanJs();
-            task.js()
-                //    .on('end', task.templateList)
-                .on('end', task.index);
+            task.js().on('end', task.index);
         } catch (e) {
             console.log(e);
         }
@@ -739,7 +755,6 @@ gulp.task('watch', ['build'], function(){
 
     watch('src/modules/**/*.@(html|jade)', function(){
         try {
-            //   task.cleanTemplates();
             task.templates()
                 .on('end', task.templateList)
                 .on('end', task.index);
