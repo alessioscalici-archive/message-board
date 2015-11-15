@@ -1,0 +1,5 @@
+.message
+  img(ng-src='{{msg.fromUser.avatar}}')
+  div {{msg.fromUser.name}}
+  div {{msg.created | date:'medium'}}
+  div {{msg.text}}

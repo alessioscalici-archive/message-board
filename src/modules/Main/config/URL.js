@@ -32,9 +32,9 @@
     oauthToken :        base + 'oauth/token',
     oauthRevokeToken :  base + 'oauth/token/revoke',
 
-    locale:             base + 'locale/{lang}', // {part}
     user : {
-      base :            apiBase + 'user/:id'
+      base :            apiBase + 'user/:id',
+      me :              apiBase + 'me',
     }
   });
 })();

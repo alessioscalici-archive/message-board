@@ -17,14 +17,14 @@ angular.module('login').controller('LoginCtrl', function ($scope, $log, $state, 
 
   // fixme remove default
   $scope.loginData = {
-    username: 'user1',
-    password: 'user1'
+    username: 'user',
+    password: 'password'
   };
 
   $scope.login = function(){
 
     Auth.login($scope.loginData).then(function (res) {
-      $state.go('messages');
+      $state.go('app.messages');
     }, function (err) {
 
       // FIXME Error handling

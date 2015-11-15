@@ -143,6 +143,7 @@ angular.module('Main').config(function($httpProvider){
         if (req.params && req.params.spinner) {
           req.spinner = req.params.spinner;
           Spinner.show(req.spinner);
+          delete req.params.spinner;
         }
         return req;
       },

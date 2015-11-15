@@ -229,9 +229,6 @@ var task = {
             .pipe(gulp.dest('build/vendor'));
     },
 
-    cleanAssets : function(){
-        return del.sync(['build/assets/**']);
-    },
 
     assets : function(){
         return gulp.src(['src/assets/**'])
@@ -510,8 +507,6 @@ var task = {
 
         var process = function (app) {
 
-            if (app.module === 'Test' )
-                return;
 
             var isProdBuild = fs.existsSync('./build/js/' + app.module + '.min.js' );
 
@@ -546,10 +541,10 @@ var task = {
             var deps = getModuleDependencies(app.module);
             _.forEach(deps, function(dep) {
                 if (!isProdBuild) {
-                    testFiles.push('build/modules/' + dep + '/*.js');
+                    testFiles.push('build/modules/messages/module.js');
+                    testFiles.push('build/modules/' + dep + '/module.js');
                     testFiles.push('build/modules/' + dep + '/**/*.js');
                 }
-                testFiles.push('src/modules/'+dep+'/**/MOCK.test.js');
                 testFiles.push('src/modules/'+dep+'/**/*.test.js');
             });
 

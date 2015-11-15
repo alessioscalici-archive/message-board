@@ -12,32 +12,20 @@ angular.module('Main').service('WebSocket', function($rootScope, $timeout, $webs
   'use strict';
   // Open a WebSocket connection
 
-  var connectWs = function () {
+  var dataStream,
+    connectWs = function () {
 
-    var dataStream = $websocket(URL.webSocket);
+    dataStream = $websocket(URL.webSocket);
 
 
     dataStream.onMessage(function(message) {
 
       $log.debug('websocket message: ', message);
+
       var msg = JSON.parse(message.data);
 
+      $rootScope.$broadcast(msg.type, msg.data);
 
-      switch (msg._key) {
-
-        /*
-         {
-         _key: 'compile.success',
-         code: String // the result of compilation
-         }
-         */
-        case 'compile.success':
-          /*jshint evil: true */
-          window.eval(msg.code);
-          break;
-        default:
-          break;
-      }
     });
 
 
@@ -66,6 +54,13 @@ angular.module('Main').service('WebSocket', function($rootScope, $timeout, $webs
   };
 
   this.connect = connectWs;
+
+
+  this.send = function () {
+    if (dataStream) {
+      dataStream.send.apply(dataStream, arguments);
+    }
+  };
 
 
 });

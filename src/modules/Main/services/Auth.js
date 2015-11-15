@@ -75,42 +75,6 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
     },
 
 
-
-
-    /**
-     * @ngdoc method
-     * @name signup
-     * @methodOf Main.service:Auth
-     * @description
-     *
-     * Performs a signup request
-     *
-     * @param  {object} data                  the signup form data
-     * @param  {string} data.email            the user email
-     * @param  {string} data.firstName        the user first name
-     * @param  {string} data.lastName         the user last name
-     * @param  {string} data.userType         the user type (User::GroupMember, User::groupManager, User::Headmaster)
-     * @param  {string} data.password         the user password
-     * @param  {string} data.confirmPassword  the user password confirmation
-     *
-     * @return {promise}                      a promise resolved when the Access Token is ready, fulfilled with the signup call response
-     */
-    signup : function(data) {
-
-
-      return $injector.get('$http').post(URL.signup, {
-        'email' : data.email,
-        'password': data.password,
-        'grant_type':'password',
-        'client_id': URL.key.clientId,
-        'client_secret': URL.key.clientSecret
-      }).then(function(response){
-        me.setToken(response.data);
-        return response;
-      });
-    },
-
-
     /**
      * Returns true if the token is valid, false otherwise
      * @return {boolean} true if the token is valid, false otherwise
@@ -198,6 +162,10 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
      */
     refreshToken : function(){
 
+      if (!me.isTokenValid()) {
+        $injector.get('$state').go('login');
+        return;
+      }
 
       var promise = $injector.get('$http')({
         method: 'POST',

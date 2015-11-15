@@ -6,14 +6,54 @@
  *
  * @description
  *
- * This is the messages view controller
+ * This is the message wall view controller
  *
  */
-angular.module('messages').controller('MessagesCtrl', function ($scope, UserSvc){
+angular.module('messages').controller('MessagesCtrl', function ($scope, $log, WebSocket, smoothScroll, Current, MessageSvc){
   'use strict';
 
-  $scope.users = UserSvc.query({
-    spinner: 'users-spinner'
+
+  MessageSvc.query({
+    spinner: 'messages-spinner'
+  }).$promise.then(function (resp) {
+    $scope.messages = resp;
   });
+
+
+  $scope.postMsg = function () {
+
+    $scope.postingMessage = true;
+    MessageSvc.save({
+      text: $scope.newMessageText
+    }).$promise.finally(function () {
+        $scope.newMessageText = '';
+        $scope.postingMessage = false;
+        smoothScroll(document.getElementById('message-bottom'));
+    });
+
+  };
+
+
+
+  // ========================= INITIALIZATION ========================= //
+
+
+
+  var listeners = [
+
+    $scope.$on('WS_MESSAGE', function (ev, msg) {
+
+      $scope.messages.push(msg);
+
+    }),
+
+    // detach listeners on scope destroy
+    $scope.$on('$destroy', function () {
+      angular.forEach(listeners, function (detach) {
+        detach();
+      });
+    })
+  ];
+
 
 });

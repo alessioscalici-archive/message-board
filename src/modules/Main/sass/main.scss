@@ -1,6 +1,10 @@
-@import 'reset';
+
 @import 'bourbon';
+@import 'variables';
+@import 'bootstrap';
+@import 'reset';
 
 @import 'spinner';
 
 @import 'login';
+@import 'messages';

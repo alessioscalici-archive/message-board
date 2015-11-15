@@ -15,8 +15,10 @@ angular.module('Main', [
   '_meta', // auto-generated constant with development metadata
   'ngResource',
   'ui.router',
+  'ui.bootstrap',
   'ngStorage',
-
+  'ngWebSocket',
+  'duScroll',
   'login',
   'messages'
 ]);

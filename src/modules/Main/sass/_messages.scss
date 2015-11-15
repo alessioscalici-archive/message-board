@@ -1,0 +1,94 @@
+
+
+
+.message-list {
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .message {
+    background: $message-bg-color;
+    padding: 10px;
+    margin: 5px;
+    border: 3px solid $message-bg-color;
+
+    border-radius: $message-border-radius;
+    border-bottom-left-radius: 0;
+
+
+
+    img {
+      display: block;
+      border-radius: 50%;
+      max-height: $navbar-height - 20;
+      border: 3px solid white;
+      float: left;
+      margin-top: 10px;
+      margin-right: .5em;
+    }
+
+
+    &.from-me {
+      border-bottom-left-radius: $message-border-radius;
+      border-bottom-right-radius: 0;
+      background: white;
+      text-align: right;
+
+      img {
+        border-color: $message-bg-color;
+        float: right;
+      }
+    }
+  }
+
+  margin-bottom: 75px;
+}
+
+#message-input {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: $background-color-1;
+  height: 70px;
+  padding: 1em;
+
+  @include display(flex);
+  @include align-items(stretch);
+  @include justify-content(space-around);
+
+  button {
+
+    @include appearance(none);
+    background: transparent;
+    border: 3px solid $bar-button-color;
+    border-radius: 50%;
+    color: $bar-button-color;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5em;
+
+    margin-left: 10px;
+    @include flex-shrink(0);
+
+    &:hover {
+
+      border-color: $bar-button-hover-color;
+      color: $bar-button-hover-color;
+    }
+
+  }
+
+  textarea {
+    @include appearance(none);
+    resize: none;
+
+    @include flex-grow(1);
+    background: $bar-button-color;
+    border-width: 0;
+
+    &:hover, &:focus {
+      background: $bar-button-hover-color;
+    }
+  }
+}
