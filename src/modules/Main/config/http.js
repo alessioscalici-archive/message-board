@@ -1,11 +1,10 @@
 /**
  * @ngdoc object
- * @name Main.config:log
+ * @name Main.config:interceptors
  *
  * @description
  *
- *    Configuration file for authorization management.
- *    Contains interceptors to handle authorization and refresh tokens.
+ *    Http interceptors registration happens here.
  *
  * @requires $httpProvider
  *
@@ -14,14 +13,18 @@ angular.module('Main').config(function($httpProvider){
   'use strict';
   $httpProvider.interceptors.push('TokenInterceptor');
   $httpProvider.interceptors.push('UnauthorizedInterceptor');
-//  $httpProvider.interceptors.push('ErrorHandlingInterceptor');
   $httpProvider.interceptors.push('SpinnerInterceptor');
-  //$httpProvider.interceptors.push('PaginatorInterceptor');
-
 })
 
 /**
- * This request interceptor appends the Access Token to the Reels API requests
+ * @ngdoc service
+ * @name Main.service:TokenInterceptor
+ *
+ * @require $log
+ * @require Main.constant:URL
+ * @require Main.service:Auth
+ *
+ * @description This request interceptor appends the Access Token to the Reels API requests
  * If a request is done while no valid token is available, the request
  * is queued til a new Access Token is available
  */
@@ -63,7 +66,15 @@ angular.module('Main').config(function($httpProvider){
   })
 
 /**
- * This responseError interceptor checks if the response is a "token expired" error.
+ * @ngdoc service
+ * @name Main.service:UnauthorizedInterceptor
+ *
+ * @require $log
+ * @require $injector
+ * @require $q
+ * @require Main.service:Auth
+ *
+ * @description This responseError interceptor checks if the response is a "token expired" error.
  * If a "token expired" is returned, the original call is queued to be called again when a new Access Token is available,
  * and a refresh token call is performed.
  */
@@ -100,39 +111,14 @@ angular.module('Main').config(function($httpProvider){
   })
 
 /**
- * This ErrorHandling interceptor checks if the response is an API common error message and it
- * defines the default way to handle it
- */
-  /*
-  .factory('ErrorHandlingInterceptor', function($log, $q, FlashMessage, ERRORCODE){
-    'use strict';
-
-    return {
-
-      responseError : function(resp){
-
-        if (resp.data && resp.data.code === ERRORCODE.ACTIVE_RECORD) {
-
-          $log.debug('ErrorHandlingInterceptor called', resp);
-
-          if (resp.data.errors) {
-            var ar = [];
-            angular.forEach(resp.data.errors, function (msg) {
-              ar.push(msg);
-            });
-            FlashMessage.show(ar.join('<br>'));
-          }
-          if (resp.data.error) {
-            FlashMessage.show(resp.data.error);
-          }
-        }
-        return $q.reject(resp);
-      }
-    };
-  })
-*/
-/**
- * This SpinnerInterceptor checks activate and deactivate spinners based on a request property
+ * @ngdoc service
+ * @name Main.service:SpinnerInterceptor
+ *
+ * @require $log
+ * @require $q
+ * @require Main.service:Spinner
+ *
+ * @description This request / response interceptor checks activate and deactivate spinners based on a request property
  */
   .factory('SpinnerInterceptor', function($log, $q, Spinner){
     'use strict';
@@ -164,46 +150,4 @@ angular.module('Main').config(function($httpProvider){
     };
     return me;
   })
-
-
-/**
- * This PaginatorInterceptor checks for pagination data and updates active paginators
- */
-
-  .factory('PaginatorInterceptor', function($rootScope){
-    'use strict';
-
-    var me = {
-
-
-      request : function(req){
-        if (req.params && req.params.paginator) {
-          req.paginator = req.params.paginator;
-          delete req.params.paginator;
-        }
-        return req;
-      },
-
-      response : function(resp) {
-
-        if (resp.config.paginator) {
-
-          // broadcasts the event to update the paginator
-          // (the event is handled in paginatorCtrl)
-          var pageData = {
-            paginator: resp.config.paginator,
-            itemsPerPage: parseInt(resp.headers('X-Page-Size')),
-            totalItems: parseInt(resp.headers('X-Page-Total')),
-            page: parseInt(resp.headers('X-Page'))
-          };
-          $rootScope.$broadcast('PAGINATOR_UPDATE', pageData);
-        }
-        return resp;
-      }
-
-
-    };
-    return me;
-  })
-
  ;

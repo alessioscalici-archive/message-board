@@ -547,8 +547,9 @@ var task = {
                     testFiles.push('build/modules/' + dep + '/**/!(*.test).js');
                 });
             }
-
+            testFiles.push('src/modules/_mock/module.js');
             testFiles.push('src/modules/**/*.test.js');
+
 
 
             // Be sure to return the stream
@@ -568,7 +569,7 @@ var task = {
                 'karma-coverage'
               ],
               preprocessors: {
-                'src/modules/**/!(*.test).js': ['coverage'] // all non-test files in feat folder
+                'build/modules/**/*.js': ['coverage'] // all non-test files in feat folder
               },
               junitReporter : {
                 outputFile: 'test_out/unit.xml',

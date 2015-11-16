@@ -3,6 +3,11 @@
 var sha1 = require('sha1');
 
 
+/**
+ * Seed for the sample database
+ *
+ * @param {object} db the object containing the NeDB collections
+ */
 module.exports = function (db) {
 
   var finn = { _id: 'finn', username: 'finn', password: sha1('password'), name: 'Finn the human', avatar: 'assets/profilePic/finn.png' },
@@ -34,7 +39,6 @@ module.exports = function (db) {
 
 
 
-
   // client for oauth 2
 
   var client = {
@@ -43,8 +47,6 @@ module.exports = function (db) {
   };
 
   db.clients.insert(client);
-
-
 
 
 };

@@ -7,7 +7,7 @@
  *
  * @description
  *
- * This is the login view controller
+ *  The login view controller
  *
  */
 angular.module('login').controller('LoginCtrl', function ($scope, $log, $state, messageCenterService, Auth){

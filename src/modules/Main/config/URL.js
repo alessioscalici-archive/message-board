@@ -1,14 +1,13 @@
 
 /**
  * @ngdoc object
- * @name SemblyApp.constant:URL
+ * @name Main.constant:URL
  *
  * @description
  *
- * Contains the API URLs
+ * Contains the URLs.
  *
  */
-
 // This IEFE is used to avoid global namespace pollution. We need a constant here (allows to use it in Angular config)
 (function(){
   'use strict';
@@ -34,7 +33,7 @@
 
     user : {
       base :            apiBase + 'user/:id',
-      me :              apiBase + 'me',
+      me :              apiBase + 'me'
     }
   });
 })();

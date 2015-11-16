@@ -1,6 +1,10 @@
 
 #login-view
+
+  // directive showing flash messages
   mc-messages
+
+  // login form
   form#login-box(name='loginForm' ng-submit='loginForm.$valid && login()' novalidate)
     .input-container
       input(type='text' name='username' ng-model='loginData.username' placeholder='user name' required)

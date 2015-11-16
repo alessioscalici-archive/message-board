@@ -1,6 +1,10 @@
 
 var Datastore = require('nedb');
 
+
+/**
+ * Initialize the NeDB collections
+ */
 module.exports = function () {
 
   var db = {

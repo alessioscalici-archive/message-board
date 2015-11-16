@@ -2,7 +2,7 @@
   .header
     img.avatar(ng-src='{{msg.fromUser.avatar}}')
     .userdate
-      .username{{msg.fromUser.name}}
-      .date{{msg.created | date:'medium'}}
+      .username {{msg.fromUser.name}}
+      .date {{msg.created | date:'medium'}}
   .body
-    .text{{msg.text}}
+    .text {{msg.text}}

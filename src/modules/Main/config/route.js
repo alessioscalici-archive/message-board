@@ -1,9 +1,24 @@
+
+/**
+ * @ngdoc object
+ * @name Main.config:route
+ *
+ * @description
+ *
+ *    Route configuration. In this file resides the configuration for ui-router states
+ *
+ * @requires $stateProvider
+ * @requires $urlRouterProvider
+ * @requires Main.constant:T_MAIN
+ *
+ */
 angular.module('Main').config(function ($stateProvider, $urlRouterProvider, T_MAIN) {
 	'use strict';
 
 
   // solves the ui-router trailing slash problem
   // IMPORTANT: define every state with a trailing slash in the URL path
+  /* istanbul ignore next  */
   $urlRouterProvider.rule(function ($injector, $location) {
     var path = $location.url();
 

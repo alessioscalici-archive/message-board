@@ -3,9 +3,13 @@
  * @name Main.service:WebSocket
  *
  * @requires $rootScope
+ * @requires $timeout
  * @requires $websocket
+ * @requires $log
+ * @requires Main.constant:URL
  *
  * @description
+ *
  *  This service encapsulates the websocket configuration
  */
 angular.module('Main').service('WebSocket', function($rootScope, $timeout, $websocket, $log, URL) {
@@ -53,9 +57,24 @@ angular.module('Main').service('WebSocket', function($rootScope, $timeout, $webs
     return dataStream;
   };
 
+
+  /**
+   * @ngdoc method
+   * @methodOf Main.service:WebSocket
+   * @name connect
+   *
+   * @description connects to the web socket server, creating a data stream object
+   */
   this.connect = connectWs;
 
 
+  /**
+   * @ngdoc method
+   * @methodOf Main.service:WebSocket
+   * @name send
+   *
+   * @description if there is a data stream object, sends the arguments through the web socket
+   */
   this.send = function () {
     if (dataStream) {
       dataStream.send.apply(dataStream, arguments);

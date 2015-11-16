@@ -10,3 +10,4 @@ build/
 busters.json
 report/
 docs/
+*.log

@@ -76,7 +76,12 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
 
 
     /**
-     * Returns true if the token is valid, false otherwise
+     * @ngdoc method
+     * @name isTokenValid
+     * @methodOf Main.service:Auth
+     *
+     * @description Returns true if the token is valid, false otherwise
+     *
      * @return {boolean} true if the token is valid, false otherwise
      */
     isTokenValid : function(){
@@ -103,11 +108,7 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
       return deferred.promise;
 
       /*
-      if (!me.isTokenValid()) {
-        var deferred = $q.defer();
-        deferred.resolve();
-        return deferred.promise;
-      }
+
       return $injector.get('$http').post( URL.oauthRevokeToken, {
         'access_token' : me.getAccessToken(),
         'refresh_token' : me.getRefreshToken()
@@ -122,8 +123,18 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
 
 
     /**
+     * @ngdoc method
+     * @name setToken
+     * @methodOf Main.service:Auth
+     *
+     * @param {object} token the token object
+     * @param {string} token.access_token the authorization token
+     * @param {string} token.refresh_token the refresh token
+     *
+     * @description
+     *
      * Sets the new authorization Token
-     * @return {string} the Refresh Token
+     *
      */
     setToken : function(token){
 
@@ -138,7 +149,11 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
     },
 
     /**
-     * Returns the Refresh Token
+     * @ngdoc method
+     * @name getRefreshToken
+     * @methodOf Main.service:Auth
+     *
+     * @description Returns the Refresh Token
      * @return {string} the Refresh Token
      */
     getRefreshToken : function(){
@@ -147,7 +162,11 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
 
 
     /**
-     * Returns the Access Token
+     * @ngdoc method
+     * @name getAccessToken
+     * @methodOf Main.service:Auth
+     *
+     * @description Returns the Access Token
      * @return {string} the Access Token, or false if there is no access token
      */
     getAccessToken : function(){
@@ -156,7 +175,7 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
 
 
     /**
-     * Performs a Refresh Token request to get a new Access Token, and then re-sends the queued requests.
+     * (private) Performs a Refresh Token request to get a new Access Token, and then re-sends the queued requests.
      * @return {promise} a promise resolved when the new Access Token is ready, fulfilled with an array of
      *                     responses of the pending requests, or with the rejection if one of them is rejected
      */
@@ -194,14 +213,13 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
 
 
     /**
-     * The pending requests queue
+     * (private) The pending requests queue
      * @type {Array}
      */
     queue : [],
 
     /**
-     *
-     * Put a request in the queue
+     * (private) Put a request in the queue
      *
      * @param {object} req - an $http request configuration.
      * @return {promise} a pending promise, resolved in the 'sendPendingRequests' method
@@ -223,7 +241,7 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
 
 
     /**
-     * Re-send all the request previously queued, and clears the queue
+     * (private) Re-send all the request previously queued, and clears the queue
      * @return {promise} a promise fulfilled with an array of responses of every pending request, or with the rejection if one of them is rejected
      */
     sendPendingRequests : function(){

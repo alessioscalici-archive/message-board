@@ -1,5 +1,9 @@
 
-
+/**
+ * Configure the web socket server
+ *
+ * @param {object} db the object containing the NeDB collections
+ */
 module.exports = function () {
 
 
@@ -7,6 +11,7 @@ module.exports = function () {
     , wss = new WebSocketServer({ port: 8080 });
 
 
+  // start listening
   wss.on('connection', function connection(ws) {
 
     ws.on('message', function incoming(message) {
@@ -21,7 +26,6 @@ module.exports = function () {
           break;
       }
 
-      console.log('received: %s', message);
     });
 
   });

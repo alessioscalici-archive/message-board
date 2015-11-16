@@ -7,7 +7,7 @@
  *
  * @description
  *
- *  A spinner directive
+ *  The spinner directive
  *
  */
 angular.module('Main').directive('spinner', function() {

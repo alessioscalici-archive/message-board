@@ -24,7 +24,7 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
   };
 
 
-
+  // ======================= EXPOSED METHODS ====================== //
 
   /**
    * @ngdoc method
