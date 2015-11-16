@@ -7,14 +7,17 @@
   "private": true,
   "dependencies": {
     "angular": "1.4.x",
+    "angular-bootstrap": "~0.14.3",
     "angular-loader": "1.4.x",
+    "angular-messages": "~1.4.7",
     "angular-mocks": "1.4.x",
-    "html5-boilerplate": "~4.3.0",
-    "angular-ui-router": "~0.2.14",
-    "ngstorage": "~0.3.10",
     "angular-resource": "~1.4.7",
-    "bootstrap-sass": "~3.3.5",
+    "angular-scroll": "~0.7.3",
+    "angular-ui-router": "~0.2.14",
     "angular-websocket": "~1.0.14",
-    "angular-bootstrap": "~0.14.3"
+    "bootstrap-sass": "~3.3.5",
+    "html5-boilerplate": "~4.3.0",
+    "message-center": "~1.2.5",
+    "ngstorage": "~0.3.10"
   }
 }

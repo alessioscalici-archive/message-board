@@ -1,6 +1,11 @@
 
+
+html {
+  background-color: $body-bg;
+}
+
 body {
-  padding-top: 70px;
+  padding-top: $navbar-height;
 }
 
 button:focus, input:focus, textarea:focus {

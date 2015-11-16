@@ -533,20 +533,22 @@ var task = {
 
             var testFiles = vendorFiles;
 
-            testFiles.push('src/modules/_mock/!(*.test).js');
 
-            if (isProdBuild)
+
+            if (isProdBuild) {
                 testFiles.push('./build/js/' + app.module + '.min.js');
+            } else {
 
-            var deps = getModuleDependencies(app.module);
-            _.forEach(deps, function(dep) {
-                if (!isProdBuild) {
+
+                var deps = getModuleDependencies(app.module);
+                _.forEach(deps, function(dep) {
                     testFiles.push('build/modules/messages/module.js');
                     testFiles.push('build/modules/' + dep + '/module.js');
-                    testFiles.push('build/modules/' + dep + '/**/*.js');
-                }
-                testFiles.push('src/modules/'+dep+'/**/*.test.js');
-            });
+                    testFiles.push('build/modules/' + dep + '/**/!(*.test).js');
+                });
+            }
+
+            testFiles.push('src/modules/**/*.test.js');
 
 
             // Be sure to return the stream
@@ -608,6 +610,8 @@ gulp.task('meta-align', ['js'], task.metaAlign);
 gulp.task('build', ['clean', 'index', 'vendor', 'sass', 'templates', 'template-list', 'js']);
 gulp.task('dev', ['build', 'meta-align', 'ngdoc', 'plato'], task.karma);
 
+
+gulp.task('test', task.karma);
 
 // PROD specific
 

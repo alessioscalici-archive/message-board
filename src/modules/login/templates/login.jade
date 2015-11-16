@@ -1,10 +1,12 @@
 
-
 #login-view
-
-  form#login-box(name='loginForm' ng-submit='loginForm.$valid && login()')
-    h1 Login
+  mc-messages
+  form#login-box(name='loginForm' ng-submit='loginForm.$valid && login()' novalidate)
     .input-container
-      input(type='text' ng-model='loginData.username' placeholder='user name')
-      input(type='password' ng-model='loginData.password' placeholder='password')
+      input(type='text' name='username' ng-model='loginData.username' placeholder='user name' required)
+      div(ng-messages='loginForm.username.$error' ng-show='loginForm.$submitted')
+        .text-danger(ng-message='required') The user name is empty!
+      input(type='password' name='password' ng-model='loginData.password' placeholder='password' required)
+      div(ng-messages='loginForm.password.$error' ng-show='loginForm.$submitted')
+        .text-danger(ng-message='required') The password is empty!
     button#login-btn(type='submit') Login

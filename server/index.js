@@ -21,70 +21,15 @@ var express = require('express'),
 var app = express();
 
 
-/*
-
- // configure cors
- var corsOptions = {
- exposedHeaders : ['X-Page', 'X-Page-Size', 'X-Page-Total']
- };
-
- app.use(require('cors')(corsOptions));
-
-
-
-
- // configure websocket server
- global.__wss = require(__configPath + 'websocket')(app);
-
-
-
-
- mongoose.connect('mongodb://localhost/ll-dev');
-
- app.mongoose = mongoose;
-
- require(__configPath + 'batch')(app);
-
-
- require(__configPath + 'locale')(app);
-
-
- require(__configPath + 'i18n')(app);
-
-
-
- // API
- require(__configPath + 'oauth2')(app);
- require(__controllersPath + 'user')(app);
- //require(__controllersPath + 'project')(app);
-
-
-
- var Datastore = require('nedb')
- , db = new Datastore();
-
- var db = mongoose.connection;
- db.on('error', console.error.bind(console, 'connection error:'));
-
-
-
- // set this AFTER all the routes
- app.use(app.oauth.errorHandler());
-
-
- // start server
- var server = app.listen(3000, function () {
- var host = server.address().address;
- var port = server.address().port;
-
- console.log('ll-server listening at http://%s:%s', host, port);
- });
-
- */
 
 
 // serve the client
 app.use(express.static(__dirname + '/../build'));
+
+
+// serve the reports
+app.use(express.static(__dirname + '/../'));
+
 
 
 // configure websocket server

@@ -1,15 +1,10 @@
 #messages-view
   spinner#messages-spinner(start-visible='true')
   ul.message-list
-    //li.message(ng-repeat='msg in messages')
-      img(ng-src='{{msg.fromUser.avatar}}')
-      div {{msg.fromUser.name}}
-      div {{msg.created | date:'medium'}}
-      div {{msg.text}}
-    li
-      message-item(ng-repeat='msg in messages' message='msg')
+    li(ng-repeat='msg in messages')
+      message-item(message='msg')
     li#message-bottom(smooth-scroll='')
-  #message-input
-    textarea(ng-model='newMessageText')
-    button#submit-text(ng-click='postMsg()' ng-disabled='!newMessageText || postingMessage' aria-label='Send')
+  form#message-input
+    input(type='text' ng-model='newMessageText' placeholder='Say something...')
+    button#submit-text(type='submit' ng-click='postMsg()' ng-disabled='!newMessageText || postingMessage' aria-label='Send')
       span.glyphicon.glyphicon-share-alt

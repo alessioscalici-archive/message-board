@@ -26,20 +26,24 @@
           "dev": [
             "angular/angular.js",
             "angular-resource/angular-resource.js",
+            "angular-messages/angular-messages.js",
             "angular-ui-router/release/angular-ui-router.js",
             "angular-bootstrap/ui-bootstrap.js",
             "ngstorage/ngStorage.js",
             "angular-websocket/dist/angular-websocket.js",
-            "ngSmoothScroll/dist/angular-smooth-scroll.min.js"
+            "angular-scroll/angular-scroll.js",
+            "message-center/message-center.js"
           ],
           "prod": [
             "angular/angular.min.js",
             "angular-resource/angular-resource.min.js",
+            "angular-messages/angular-messages.min.js",
             "angular-ui-router/release/angular-ui-router.min.js",
             "angular-bootstrap/ui-bootstrap.min.js",
             "ngstorage/ngStorage.min.js",
             "angular-websocket/dist/angular-websocket.min.js",
-            "ngSmoothScroll/dist/angular-smooth-scroll.min.js"
+            "angular-scroll/angular-scroll.min.js",
+            "message-center/message-center.js"
           ]
         },
         "async": {

@@ -1,5 +1,8 @@
 .message
-  img(ng-src='{{msg.fromUser.avatar}}')
-  div {{msg.fromUser.name}}
-  div {{msg.created | date:'medium'}}
-  div {{msg.text}}
+  .header
+    img.avatar(ng-src='{{msg.fromUser.avatar}}')
+    .userdate
+      .username{{msg.fromUser.name}}
+      .date{{msg.created | date:'medium'}}
+  .body
+    .text{{msg.text}}

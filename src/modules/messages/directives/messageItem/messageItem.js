@@ -14,13 +14,17 @@ angular.module('messages').directive('messageItem', function (T_MAIN, Current) {
   'use strict';
   return {
     restrict: 'E',
+    replace: true,
     scope: {
       msg: '=message'
     },
     templateUrl: T_MAIN.MESSAGES_MESSAGE_ITEM,
     link: function (scope, element, attrs) {
+
+      // adds the from-me class to the message if it's from the current user
+      //
       if (Current.user && Current.user._id === scope.msg.from) {
-        angular.element(element[0].querySelector('.message')).addClass('from-me');
+        element.addClass('from-me');
       }
     }
   };

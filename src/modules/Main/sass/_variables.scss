@@ -1,9 +1,36 @@
-$background-color-1: #444444;
-$brand-color-1: #34C578;
-
-$message-bg-color: lighten($brand-color-1, 40%);
-$message-border-radius: 2em;
 
 
-$bar-button-hover-color: #fff;
-$bar-button-color: rgba($bar-button-hover-color, .5);
+
+// ========================= BASE ========================= //
+
+
+
+$base-border-width: 3px;
+
+
+
+
+$dark-control-hover-color: #fff;
+$dark-control-color: rgba($dark-control-hover-color, .5);
+
+
+
+
+
+// ========================= LOGIN ========================= //
+
+$login-border-color: #DEDEDE;
+
+
+
+// ========================= MESSAGES ========================= //
+
+
+
+
+
+
+
+
+
+
