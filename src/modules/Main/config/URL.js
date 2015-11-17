@@ -34,6 +34,10 @@
     user : {
       base :            apiBase + 'user/:id',
       me :              apiBase + 'me'
+    },
+
+    message: {
+      base: 'message'
     }
   });
 })();

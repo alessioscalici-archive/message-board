@@ -17,6 +17,7 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
   /**
    * Scroll the document to the last message
    */
+  /* istanbul ignore next */
   var scrollToLastMsg = function () {
     $timeout(function () {
       angular.element($document[0]).scrollToElement($document[0].getElementById('message-bottom'), 0, 800);
@@ -87,6 +88,7 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
 
     // detach listeners on scope destroy
     $scope.$on('$destroy', function () {
+      /* istanbul ignore next */
       angular.forEach(listeners, function (detach) {
         detach();
       });

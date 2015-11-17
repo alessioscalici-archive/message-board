@@ -14,6 +14,8 @@
  */
 angular.module('Main').service('WebSocket', function($rootScope, $timeout, $websocket, $log, URL) {
   'use strict';
+
+
   // Open a WebSocket connection
 
   var dataStream,
@@ -22,6 +24,7 @@ angular.module('Main').service('WebSocket', function($rootScope, $timeout, $webs
     dataStream = $websocket(URL.webSocket);
 
 
+    // broadcast the messages to the children scopes
     dataStream.onMessage(function(message) {
 
       $log.debug('websocket message: ', message);
@@ -33,24 +36,11 @@ angular.module('Main').service('WebSocket', function($rootScope, $timeout, $webs
     });
 
 
+    // on close, try to reconnect every 3 seconds
     dataStream.onClose(function() {
 
       $log.debug('WS closed: starting reconnect attempts');
       $timeout(connectWs, 3000);
-      $rootScope.$broadcast('LED_SET', 'ws-status', 'red');
-
-    });
-
-    dataStream.onError(function() {
-
-      $log.debug('WS ERROR: ', arguments);
-
-    });
-
-    dataStream.onOpen(function() {
-
-      $log.debug('WS CONNECTED: ', arguments);
-      $rootScope.$broadcast('LED_SET', 'ws-status', 'green');
 
     });
 

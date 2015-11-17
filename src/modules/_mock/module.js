@@ -129,107 +129,60 @@ angular.module('windowMock',  []).service("$window",  function(){
 
 /**
  * @ngdoc overview
- * @name modalMock
+ * @name websocketMock
  *
  * @description
- * This module is used in the unit tests to mock the $modal service.
+ * This module is used in the unit tests to mock the $websocket service.
  *
  */
-angular.module('modalMock',  []).service("$modal",  function(){
+angular.module('websocketMock',  []).service("$websocket",  function(){
   'use strict';
 
-  var modalInstanceMock = {
-    result: {
-      then: function(confirmCallback, cancelCallback) {
-        //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
-        this.confirmCallBack = confirmCallback || function () {};
-        this.cancelCallback = cancelCallback || function () {};
-      }
+  var dataStreamMock = {
+    listeners: {
+      message: [],
+      open: [],
+      close: [],
+      error: []
     },
-    close: function( item ) {
-      //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
-      this.result.confirmCallBack( item );
+    onMessage: function( func ) {
+      dataStreamMock.listeners.message.push(func);
     },
-    dismiss: function( type ) {
-      //The user clicked cancel on the modal dialog, call the stored cancel callback
-      this.result.cancelCallback( type );
+    onOpen: function( func ) {
+      dataStreamMock.listeners.open.push(func);
+    },
+    onClose: function( func ) {
+      dataStreamMock.listeners.close.push(func);
+    },
+    onError: function( func ) {
+      dataStreamMock.listeners.error.push(func);
+    },
+
+    send: function(  ) {}
+
+  };
+
+  var me = function () {
+    return dataStreamMock;
+  };
+
+  me.trigger = function ( event, args ) {
+
+    args = args || [];
+
+    if (args.constructor !== Array) {
+      throw '$websocket mock .trigger() needs an array as a 2nd parameter';
+    }
+    var listeners = dataStreamMock.listeners[event];
+    for (var i = 0; i < listeners.length; ++i) {
+      listeners[i].apply(this, args);
     }
   };
-  var me = {
 
-    open: function () {
-      return modalInstanceMock;
-    },
-
-    instance : modalInstanceMock
-  };
+  me.dataStream = dataStreamMock;
   return me;
-})
-  .service("Dialog",  function(){
-    'use strict';
-
-    var modalInstanceMock = {
-
-        then: function(confirmCallback, cancelCallback) {
-          //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
-          this.confirmCallBack = confirmCallback || function () {};
-          this.cancelCallback = cancelCallback || function () {};
-        },
-
-        close: function( item ) {
-          //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
-          this.confirmCallBack( item );
-        },
-        dismiss: function( type ) {
-          //The user clicked cancel on the modal dialog, call the stored cancel callback
-          this.cancelCallback( type );
-        }
-      },
-      returnInstance = function () {
-        return modalInstanceMock;
-      },
-      me = {
-
-        confirm: returnInstance,
-
-        prompt: returnInstance,
-
-        showClassFormDialog: returnInstance,
-
-        instance : modalInstanceMock
-      };
-    return me;
-  });
-
-/**
- * @ngdoc overview
- * @name translateMock
- *
- * @description
- * This module is used in the unit tests to mock the $translate service.
- *
- */
-angular.module('translateMock',  []).config(function ($provide, $translateProvider) {
-
-  $provide.factory('customLoader', function ($q) {
-    return function () {
-      var deferred = $q.defer();
-
-      deferred.resolve({
-
-        // needed to make $translate().then  work
-
-        'class_setup.class_joined' :'class_setup.class_joined',
-        'announcements.created' : 'announcements.created'
-
-      });
-      return deferred.promise;
-    };
-  });
-
-  $translateProvider.useLoader('customLoader');
-
 });
+
 
 
 angular.module('_mock',  ['Main'])
@@ -237,13 +190,32 @@ angular.module('_mock',  ['Main'])
 .service('EntityMock',  function(){
     'use strict';
 
-    // arrays of entities mocks as they come from the server
-    var me = {
-      users: [
-        { _id: 'finn', username: 'finn', password: ('password'), name: 'Finn the human', avatar: 'assets/profilePic/finn.png' },
-        { _id: 'jake', username: 'jake', password: ('password'), name: 'Jake the dog', avatar: 'assets/profilePic/jake.jpg' }
-      ]
+  // arrays of entities mocks as they come from the server
+  var me = {
+    users: [
+      { _id: 'finn', username: 'finn', password: ('password'), name: 'Finn the human', avatar: 'assets/profilePic/finn.png' },
+      { _id: 'jake', username: 'jake', password: ('password'), name: 'Jake the dog', avatar: 'assets/profilePic/jake.jpg' }
+    ],
+
+    messages: [
+      { from: 'finn', text: 'Hi!! this is a message', created: new Date(2015, 10, 9, 19, 3, 0) },
+      { from: 'jake', text: 'This too!', created: new Date(2015, 10, 9, 19, 4, 0) }
+    ],
+
+    authorizationTokens: [
+      { "token_type":"bearer", "access_token": "2b9b1f2909bef702c7f30b117508dbfed92fd718", "expires_in": 3060, "refresh_token": "716ff57486d11728415ee2cd59ec2a0ca32a9fa4" }
+    ]
+  };
+
+  // messages notifications from web socket
+  me.wsMessages = [];
+  for (var i = 0; i < me.messages.length; ++i) {
+    var msgObject = {
+      data: JSON.stringify({ type: 'WS_MESSAGE', data:  me.messages[i] })
     };
+    me.wsMessages.push(msgObject);
+  }
+
   return me;
 })
 

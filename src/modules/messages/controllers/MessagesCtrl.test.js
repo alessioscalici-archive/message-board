@@ -1,43 +1,234 @@
 describe('MessagesCtrl', function () {
   'use strict';
 
-  var scope;
-
   beforeEach(module('Main'));
-
-  beforeEach(inject(function ($controller, $rootScope) {
-      scope = $rootScope.$new();
-
+  beforeEach(module('stateMock'));
+  beforeEach(module('_mock'));
 
 
-      $controller('MessagesCtrl', {
-          $scope: scope
-      });
+
+  /*
+   Inject the needed services into the s object
+   */
+  var s = {}, toInject = ['$rootScope', '$timeout', 'MessageSvc', 'messageCenterService', 'URL', 'EntityMock'];
+
+  beforeEach(inject(function ($injector) {
+    for (var i=0; i<toInject.length; ++i)
+      s[toInject[i]] = $injector.get(toInject[i]);
   }));
 
 
-  it('should have a property "name"', function () {
+  // runs the controller
+  var $scope,
+    runController = inject(function ($controller, $rootScope) {
 
-      expect(true).toBeDefined();
+
+    // create a new clean scope for the controller
+    $scope = $rootScope.$new();
+
+    // define what's injected in the controller
+    var injected = angular.extend({
+      $scope: $scope
+    }, s);
+
+    // execute  the controller
+    $controller('MessagesCtrl', injected);
 
   });
 
-  // it('should have a property "name"', function () {
 
-  //     expect(scope.name).toBeDefined();
 
-  // });
+  var httpBackend;
+  beforeEach(inject(function ($httpBackend) {
+    httpBackend = $httpBackend;
+  }));
 
-  // it('should have a property "version"', function () {
 
-  //     expect(scope.version).toBeDefined();
+  afterEach(function () {
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
 
-  // });
 
-  // it('should have a property "description"', function () {
+  // //---------------------------------------------------------------------------------
+  // //                                  TESTS
+  // //---------------------------------------------------------------------------------
 
-  //     expect(scope.description).toBeDefined();
 
-  // });
+
+
+  describe('when instantiatiated', function () {
+
+    beforeEach(function () {
+      httpBackend.whenGET(s.URL.message.base).respond(200, s.EntityMock.messages);
+    });
+
+
+    it('should define a property "messages"', function () {
+
+      runController();
+      httpBackend.flush();
+      expect($scope.messages).toBeDefined();
+
+    });
+
+    it('should load the previous messages', function () {
+
+      spyOn(s.MessageSvc, 'query').and.callThrough();
+      runController();
+      httpBackend.flush();
+      expect(s.MessageSvc.query).toHaveBeenCalled();
+    });
+
+
+
+    // call ok response
+
+    describe('if GET /messages returns ok', function () {
+
+      beforeEach(function () {
+        httpBackend.expectGET(s.URL.message.base).respond(200, s.EntityMock.messages);
+      });
+
+      it ('should set the messages array to the response', function () {
+
+        runController();
+        httpBackend.flush();
+
+        expect($scope.messages.length > 0 ).toBe(true);
+      });
+
+    });
+
+
+    // call error response
+
+    describe('if GET /messages returns error', function () {
+      beforeEach(function () {
+        httpBackend.expectGET(s.URL.message.base).respond(401, 'Unauthorized');
+      });
+
+      it ('should show an error message', function () {
+        spyOn(s.messageCenterService, 'add');
+        runController();
+        httpBackend.flush();
+        expect(s.messageCenterService.add).toHaveBeenCalled();
+      });
+    });
+
+
+
+
+  });
+
+  // ========================= METHODS ========================= //
+
+  describe('method', function () {
+
+    beforeEach(function () {
+      httpBackend.whenGET(s.URL.message.base).respond(200, s.EntityMock.messages);
+      runController();
+
+      $scope.newMessageText = 'NEW MESSAGE TEXT';
+    });
+
+
+    describe('.postMsg()', function () {
+
+
+      beforeEach(function () {
+        httpBackend.whenPOST(s.URL.message.base).respond(201, s.EntityMock.messages[0]);
+
+        runController();
+
+        $scope.newMessageText = 'NEW MESSAGE TEXT';
+      });
+
+
+      it('should call MessageSvc.save()', function () {
+
+        spyOn(s.MessageSvc, 'save').and.callThrough();
+
+        $scope.postMsg();
+        httpBackend.flush();
+
+        expect(s.MessageSvc.save).toHaveBeenCalledWith({ text: 'NEW MESSAGE TEXT' });
+      });
+
+
+      // call ok response
+
+      describe('if POST /messages returns ok', function () {
+
+        beforeEach(function () {
+          httpBackend.expectPOST(s.URL.message.base).respond(201, s.EntityMock.messages[0]);
+        });
+
+        it ('should set the new message text as empty string', function () {
+
+          $scope.postMsg();
+          httpBackend.flush();
+          expect($scope.newMessageText).toBe('');
+        });
+
+      });
+
+
+      // // call error response
+
+      describe('if POST /messages returns error', function () {
+        beforeEach(function () {
+          httpBackend.expectPOST(s.URL.message.base).respond(401, 'Unauthorized');
+        });
+
+        it ('should show an error message', function () {
+          spyOn(s.messageCenterService, 'add');
+
+          $scope.postMsg();
+          httpBackend.flush();
+
+          expect(s.messageCenterService.add).toHaveBeenCalled();
+        });
+      });
+
+    });
+
+  });
+
+
+
+  // ========================= EVENTS ========================= //
+
+  describe('events', function () {
+
+    beforeEach(function () {
+      httpBackend.whenGET(s.URL.message.base).respond(200, s.EntityMock.messages);
+      runController();
+      httpBackend.flush();
+    });
+
+
+    describe('WS_MESSAGE', function () {
+
+      it('should add the message to the messages array', function () {
+
+        var length = $scope.messages.length;
+
+        s.$rootScope.$broadcast('WS_MESSAGE', s.EntityMock.messages[0]);
+
+        expect($scope.messages.length).toBe(length + 1);
+      });
+
+    });
+
+
+  });
+
+
+
 
 });
+
+
+
+

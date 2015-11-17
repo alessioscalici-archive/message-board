@@ -107,18 +107,6 @@ angular.module('Main').service('Auth', function($log, $q, $injector, $localStora
       deferred.resolve();
       return deferred.promise;
 
-      /*
-
-      return $injector.get('$http').post( URL.oauthRevokeToken, {
-        'access_token' : me.getAccessToken(),
-        'refresh_token' : me.getRefreshToken()
-      }).then(function(response){
-        $log.debug('Logout successful: ', response);
-        $localStorage.token = false;
-        $localStorage.$save();
-        return response;
-      });
-      */
     },
 
 

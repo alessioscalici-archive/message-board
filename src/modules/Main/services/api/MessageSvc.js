@@ -12,7 +12,7 @@
 angular.module('Main').factory('MessageSvc', function($resource, URL) {
   'use strict';
 
-  return $resource(URL.apiBase + 'message', {id: '@id'}, {
+  return $resource(URL.message.base, {id: '@id'}, {
 
   });
 
