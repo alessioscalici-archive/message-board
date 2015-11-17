@@ -37,7 +37,7 @@
     },
 
     message: {
-      base: 'message'
+      base:             apiBase + 'message'
     }
   });
 })();
