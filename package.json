@@ -76,7 +76,7 @@
     "dev": "gulp dev",
     "test": "gulp karma",
     "e2e": "protractor e2e-tests/conf/local.conf.js",
-    "postinstall": "node_modules/bower/bin/bower install",
+    "postinstall": "./node_modules/bower/bin/bower install",
     "start": "node server/index.js"
   }
 }
