@@ -87,7 +87,12 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
       scrollToLastMsg();
 
       // play notification sound
-      $document[0].getElementById('audio-notification').play();
+      try {
+        $document[0].getElementById('audio-notification').play();
+      } catch (e) {
+        // we can live without...
+      }
+
     }),
 
     // detach listeners on scope destroy
