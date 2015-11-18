@@ -502,6 +502,12 @@ var task = {
         return forEachApp(process);
     },
 
+
+    rootFiles : function(){
+        return gulp.src('src/root-files/*')
+            .pipe(gulp.dest('build'));
+    },
+
     karma : function (done) {
 
 
@@ -597,13 +603,14 @@ var task = {
 //0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000//
 
 gulp.task('clean', ['jshint'], task.clean);
+gulp.task('root-files', ['clean'], task.rootFiles);
 gulp.task('vendor', ['clean'], task.vendor);
 gulp.task('assets', ['clean'], task.assets);
 gulp.task('sass', ['clean'], task.sass);
 gulp.task('js', ['clean'], task.js);
 gulp.task('template-list', ['js'], task.templateList);
 gulp.task('templates', ['clean'], task.templates);
-gulp.task('index', ['vendor', 'assets', 'sass', 'templates', 'meta', 'template-list', 'js'], task.index);
+gulp.task('index', ['vendor', 'root-files', 'assets', 'sass', 'templates', 'meta', 'template-list', 'js'], task.index);
 
 gulp.task('meta', ['js'], task.meta);
 gulp.task('meta-align', ['js'], task.metaAlign);
