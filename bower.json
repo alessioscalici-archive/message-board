@@ -1,7 +1,7 @@
 {
   "name": "message-board",
   "description": "A simple message board application",
-  "version": "0.0.2-build.0",
+  "version": "0.0.2-build.2",
   "homepage": "https://github.com/alessioscalici/message-board",
   "license": "MIT",
   "private": true,

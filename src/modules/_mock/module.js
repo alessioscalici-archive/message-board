@@ -50,82 +50,7 @@ angular.module('stateMock',  []).service("$state",  function(){
 
 
 
-/**
- * @ngdoc overview
- * @name localStorageMock
- *
- * @description
- * This module is used in the unit tests to mock the $localStorage service.
- *
- */
-angular.module('localStorageMock',  []).service("$localStorage",  function(){
-  'use strict';
 
-  return {
-    $save : function(){}
-  };
-});
-
-
-/**
- * @ngdoc overview
- * @name directiveCtrlMock
- *
- * @description
- * This module is used in the directive controllers unit tests, to mock services like $element and $attrs
- *
- */
-angular.module('directiveCtrlMock',  []).service("$element",  function(){
-  'use strict';
-
-  return {
-    hide : function(){},
-    show : function(){},
-    addClass : function(){},
-    removeClass : function(){},
-    hasClass : function(){},
-    css : function(){},
-    find : function(){
-      return [];
-    }
-  };
-});
-
-
-/**
- * @ngdoc overview
- * @name windowMock
- *
- * @description
- * This module is used in the unit tests to mock the $window service.
- *
- */
-angular.module('windowMock',  []).service("$window",  function(){
-  'use strict';
-
-  return {
-    location : {
-      href : ''
-    },
-    open : function(){},
-    addEventListener : function(){},
-    removeEventListener : function(){}
-  };
-})
-
-  .service("$document", function(){
-    'use strict';
-
-    var $documentMock = [
-      {
-        body : {},
-      }
-    ];
-
-    $documentMock.bind = function () {};
-
-    return $documentMock;
-  });
 
 /**
  * @ngdoc overview
@@ -219,6 +144,62 @@ angular.module('_mock',  ['Main'])
   return me;
 })
 
+.service('HttpResponseMock',  function() {
+  'use strict';
+  // arrays of entities mocks as they come from the server
+  var me = {
+    genericError : {
+      status: 500,
+      data: {
+        error: 'Generic error'
+      }
+    },
+
+    notFoundError : {
+      status: 404,
+      data: {
+        error: 'Not found'
+      }
+    },
+
+    unauthorizedError : {
+      status: 401,
+      data: {
+        error: 'Unauthorized'
+      }
+    },
+
+    tokenExpiredError : {
+      status: 401,
+      data: {
+        error: 'invalid_token',
+        'error_description': 'The access token has expired.'
+      }
+    },
+
+    tokenInvalidError : {
+      status: 401,
+      data: {
+        error: 'invalid_token',
+        'error_description': 'The access token is invalid.'
+      }
+    },
+
+    genericSuccess : {
+      status: 200,
+      data: {
+        msg: 'Generic success'
+      }
+    },
+
+    loginSuccess : {
+      access_token : 'ACCESS_TOKEN_HASH',
+      refresh_token : 'REFRESH_TOKEN_HASH',
+    }
+  };
+  return me;
+})
+
 /**
  * @ngdoc service
  * @name _mock.service:GetUrl
@@ -252,71 +233,6 @@ angular.module('_mock',  ['Main'])
     }
     return url;
   };
-})
-
-
-  .service("HttpResponseMock",  function(URL, EntityMock){
-    'use strict';
-
-    var me = {
-      genericApiOk : {
-        config : {
-          url : URL.accounts.me
-        },
-        status: 200,
-        data: {}
-      },
-
-      genericApi422 : {
-        config : {
-          url : URL.accounts.base,
-          method: 'POST'
-        },
-        status: 422,
-        data: {
-          code: 1,
-          errors: {
-            password: 'Password too short'
-          }
-        }
-      },
-
-      genericApi422_singleError : {
-        config : {
-          url : URL.accounts.base,
-          method: 'POST'
-        },
-        status: 422,
-        data: {
-          code: 1,
-          error:  'Password too short'
-        }
-      },
-
-      genericNotApi422 : {
-        config : {
-          url : URL.base + 'some-url',
-          method: 'POST'
-        },
-        status: 422,
-        data: {}
-      },
-
-      notFoundError : {
-        config : {
-          url : URL.accounts.me
-        },
-        status: 400
-      },
-
-      apiQuery : {
-        years : EntityMock.years,
-        levels : EntityMock.levels,
-        courses : EntityMock.courses,
-        subjects : EntityMock.subjects
-      }
-    };
-    return me;
-  });
+});
 
 
