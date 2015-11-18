@@ -21,13 +21,12 @@ module.exports = function (db) {
 
   var minute = 0,
     messages = [
-      { from: finn._id, text: 'Hey guys, it\'s adventure time! Who\'s up for a battle with chicken gloves?', created: new Date(2015, 10, 9, 19, minute++, 0) },
-      { from: jake._id, text: 'Come on Finn, again? We did it last weekend...', created: new Date(2015, 10, 9, 19, minute++, 0) },
-      { from: bubblegum._id, text: 'Ok to me <3', created: new Date(2015, 10, 9, 19, minute++, 0) },
-      { from: bmo._id, text: 'Yeah, I will take some video of you fighting!', created: new Date(2015, 10, 9, 19, minute++, 0) },
-      { from: lumpy._id, text: 'Guys c\'mon... seriously?', created: new Date(2015, 10, 9, 19, minute++, 0) },
-      { from: finn._id, text: 'Come on, it\'s finntastic!', created: new Date(2015, 10, 9, 19, minute++, 0) },
-      { from: marceline._id, text: '\'-_-', created: new Date(2015, 10, 9, 19, minute++, 0) }
+      { from: finn._id, text: 'What are you gonna wish for, dude?', created: new Date(2015, 10, 9, 19, minute++, 0) },
+      { from: jake._id, text: 'Oh, you know. That something special only two bros can share.', created: new Date(2015, 10, 9, 19, minute++, 0) },
+      { from: finn._id, text: 'I think I\'m whishing for the same thing!', created: new Date(2015, 10, 9, 19, minute++, 0) },
+      { from: jake._id, text: 'You mean the...', created: new Date(2015, 10, 9, 19, minute++, 0) },
+      { from: finn._id, text: 'ANCIENT PSYCHIC TANDEM WAR ELEPHANT!!', created: new Date(2015, 10, 9, 19, minute++, 0) },
+      { from: jake._id, text: 'ANCIENT PSYCHIC TANDEM WAR ELEPHANT!!', created: new Date(2015, 10, 9, 19, minute++, 0) }
     ];
 
 
