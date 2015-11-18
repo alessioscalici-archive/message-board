@@ -59,7 +59,10 @@ $message-margin-offset: 30px;
 
           display: block;
           border-radius: 50%;
+          min-height: $message-avatar-size;
           max-height: $message-avatar-size;
+          min-width: $message-avatar-size;
+          max-width: $message-avatar-size;
           border: 3px solid white;
 
         }
@@ -121,9 +124,23 @@ $message-margin-offset: 30px;
 
 
     @media (min-width: $screen-sm-min) {
+
+      li {
+        @include justify-content(center);
+      }
+
       .message {
         min-width: 500px;
         @include transition(min-width .5s ease);
+
+        font-size: 1.3em;
+
+        .header {
+          img.avatar {
+            min-height: ($message-avatar-size * 2);
+            min-width: ($message-avatar-size * 2);
+          }
+        }
       }
     }
 

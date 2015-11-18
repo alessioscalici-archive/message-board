@@ -85,6 +85,9 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
     $scope.$on('WS_MESSAGE', function (ev, msg) {
       $scope.messages.push(msg);
       scrollToLastMsg();
+
+      // play notification sound
+      $document[0].getElementById('audio-notification').play();
     }),
 
     // detach listeners on scope destroy
