@@ -616,7 +616,7 @@ gulp.task('meta', ['js'], task.meta);
 gulp.task('meta-align', ['js'], task.metaAlign);
 
 gulp.task('build', ['clean', 'index', 'vendor', 'sass', 'templates', 'template-list', 'js']);
-gulp.task('dev', ['build', 'meta-align', 'ngdoc', 'plato'], task.karma);
+gulp.task('dev', ['build', 'meta-align', 'plato'], task.karma);
 
 
 gulp.task('test', task.karma);
@@ -627,7 +627,7 @@ gulp.task('html2js-prod', ['build'], task.html2jsProd);
 gulp.task('js-prod', ['html2js-prod', 'build'], task.jsProd);
 gulp.task('css-prod', ['build'], task.cssProd);
 gulp.task('index-prod', ['js-prod', 'css-prod', 'build'], task.indexProd);
-gulp.task('prod', ['js-prod', 'css-prod', 'index-prod', 'build', 'meta-align', 'ngdoc', 'plato'], function(version){
+gulp.task('prod', ['js-prod', 'css-prod', 'index-prod', 'build', 'meta-align', 'plato'], function(version){
 
     del.sync([
         'build/styles',

@@ -1,0 +1,69 @@
+<h1><code ng:non-bindable="">Auth</code>
+<div><span class="hint">service in module <code ng:non-bindable="">Main</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="main-service-page main-service-auth-page"><p>This service manages the authentication.
+The workflow is:</p>
+<ul>
+<li>First of all, login using the login() method. An authorization token will be returned (if the login was successful)</li>
+<li>When a request receives a &quot;token expired&quot; response:<ul>
+<li>Queue the request with the queueRequest() method</li>
+<li>Make a refresh token request calling the refreshToken() method</li>
+</ul>
+</li>
+<li>The refreshToken method automatically re-sends the pending requests when a new Access Token is available</li>
+</ul>
+</div></div>
+<h2 id="dependencies">Dependencies</h2>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$log">$log</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$q">$q</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$injector">$injector</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$localStorage">$localStorage</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/Main.constant:URL">URL</a></code>
+</li>
+</ul>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_getaccesstoken">getAccessToken()</h3>
+<div class="getaccesstoken"><div class="getaccesstoken-page"><p>Returns the Access Token</p>
+</div><h5 id="methods_getaccesstoken_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="getaccesstoken-page"><p>the Access Token, or false if there is no access token</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getrefreshtoken">getRefreshToken()</h3>
+<div class="getrefreshtoken"><div class="getrefreshtoken-page"><p>Returns the Refresh Token</p>
+</div><h5 id="methods_getrefreshtoken_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="getrefreshtoken-page"><p>the Refresh Token</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_istokenvalid">isTokenValid()</h3>
+<div class="istokenvalid"><div class="istokenvalid-page"><p>Returns true if the token is valid, false otherwise</p>
+</div><h5 id="methods_istokenvalid_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="istokenvalid-page"><p>true if the token is valid, false otherwise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_login">login(data)</h3>
+<div class="login"><div class="login-page"><p>Performs a login request</p>
+</div><h5 id="methods_login_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>data</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="login-page"><p>the login form data</p>
+</div></td></tr><tr><td>data.username</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="login-page"><p>the user name</p>
+</div></td></tr><tr><td>data.password</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="login-page"><p>the user password</p>
+</div></td></tr></tbody></table><h5 id="methods_login_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">promise</a></td><td><div class="login-page"><p>a promise resolved when the Access Token is ready, fulfilled with the login call response</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_logout">logout()</h3>
+<div class="logout"><div class="logout-page"><p>Performs a logout request</p>
+</div><h5 id="methods_logout_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">promise</a></td><td><div class="logout-page"><p>a promise resolved at the call response</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_settoken">setToken(token)</h3>
+<div class="settoken"><div class="settoken-page"><p>Sets the new authorization Token</p>
+</div><h5 id="methods_settoken_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>token</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="settoken-page"><p>the token object</p>
+</div></td></tr><tr><td>token.access_token</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="settoken-page"><p>the authorization token</p>
+</div></td></tr><tr><td>token.refresh_token</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="settoken-page"><p>the refresh token</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

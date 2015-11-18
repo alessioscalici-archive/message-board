@@ -9,5 +9,5 @@ tmp
 build/
 busters.json
 report/
-docs/
+PUSH_docs/
 *.log
