@@ -68,13 +68,10 @@
     "ws": "^0.8.0"
   },
   "scripts": {
-    "gulp": "gulp",
-    "prod": "gulp prod",
-    "prod-patch": "gulp prod -v patch",
-    "prod-minor": "gulp prod -v minor",
-    "prod-major": "gulp prod -v major",
-    "dev": "gulp dev",
-    "test": "gulp test",
+    "gulp": "node ./node_modules/gulp/bin/gulp.js",
+    "prod": "node ./node_modules/gulp/bin/gulp.js prod",
+    "dev": "node ./node_modules/gulp/bin/gulp.js dev",
+    "test": "node ./node_modules/gulp/bin/gulp.js test",
     "postinstall": "sh ./post_install.sh",
     "start": "node server/index.js"
   }

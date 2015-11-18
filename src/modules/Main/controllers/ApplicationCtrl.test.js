@@ -10,11 +10,16 @@ describe('ApplicationCtrl', function () {
   /*
    Inject the needed services into the s object
    */
-  var s = {}, toInject = ['WebSocket', 'Auth', 'EntityMock'];
+  var s = {}, toInject = ['$state', 'WebSocket', 'Auth', 'EntityMock'];
 
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function ($injector, $q) {
     for (var i=0; i<toInject.length; ++i)
       s[toInject[i]] = $injector.get(toInject[i]);
+
+    s.Auth.logout = function () {
+      this.deferred = $q.defer();
+      return this.deferred.promise;
+    };
   }));
 
 

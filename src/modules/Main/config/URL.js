@@ -15,7 +15,11 @@
 
   var base = window.location.origin + '/',
     apiBase = base + 'api/v1/',
-    webSocket = window.location.origin.replace(/^https?/, 'ws');
+
+    // replaces also the secure "s" accordingly
+    webSocket = window.location.origin.replace(/^http(s?)/g, function () {
+      return 'ws' + arguments[1];
+    });
 
   angular.module('Main').constant('URL', {
 

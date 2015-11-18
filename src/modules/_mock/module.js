@@ -49,16 +49,12 @@ angular.module('stateMock',  []).service("$state",  function(){
 });
 
 
-
-
-
 /**
  * @ngdoc overview
  * @name websocketMock
  *
  * @description
  * This module is used in the unit tests to mock the $websocket service.
- *
  */
 angular.module('websocketMock',  []).service("$websocket",  function(){
   'use strict';
@@ -108,6 +104,34 @@ angular.module('websocketMock',  []).service("$websocket",  function(){
   return me;
 });
 
+
+/**
+ * @ngdoc overview
+ * @name resourceMock
+ *
+ * @description
+ * This module is used in the unit tests to mock the services wrapping $resource.
+ *
+ */
+angular.module('resourceMock',  []).service("ResourceMock",  function($q){
+  'use strict';
+
+  return function () {
+
+    this.deferred = null;
+
+    this.genericMethod = function() {
+      this.deferred = $q.defer();
+      return { $promise: this.deferred.promise };
+    };
+
+    this.query = this.genericMethod;
+    this.get = this.genericMethod;
+    this.update = this.genericMethod;
+    this.save = this.genericMethod;
+    this['delete'] = this.genericMethod;
+  };
+});
 
 
 angular.module('_mock',  ['Main'])
