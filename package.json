@@ -74,8 +74,7 @@
     "prod-minor": "gulp prod -v minor",
     "prod-major": "gulp prod -v major",
     "dev": "gulp dev",
-    "test": "gulp karma",
-    "e2e": "protractor e2e-tests/conf/local.conf.js",
+    "test": "gulp test",
     "postinstall": "sh ./post_install.sh",
     "start": "node server/index.js"
   }
