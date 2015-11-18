@@ -4,11 +4,11 @@
  *
  * @param {object} db the object containing the NeDB collections
  */
-module.exports = function () {
+module.exports = function (server) {
 
 
   var WebSocketServer = require('ws').Server
-    , wss = new WebSocketServer({ port: 8080 });
+    , wss = new WebSocketServer({ server: server });
 
 
   // start listening

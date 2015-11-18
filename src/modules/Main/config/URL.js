@@ -13,9 +13,9 @@
   'use strict';
 
 
-  var base = 'http://localhost:3000/',
+  var base = window.location.origin + '/',
     apiBase = base + 'api/v1/',
-    webSocket = 'ws://localhost:8080';
+    webSocket = window.location.origin.replace(/^https?/, 'ws');
 
   angular.module('Main').constant('URL', {
 

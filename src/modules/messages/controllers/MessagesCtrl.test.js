@@ -1,4 +1,4 @@
-describe('MessagesCtrl', function () {
+xdescribe('MessagesCtrl', function () {
   'use strict';
 
   beforeEach(module('Main'));

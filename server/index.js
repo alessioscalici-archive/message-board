@@ -21,8 +21,7 @@ app.use(express.static(__dirname + '/../build'));
 
 
 
-// configure websocket server
-global.__wss = require(__configPath + 'websocket')(app);
+
 
 // vonfigure the NeDB database
 var db = require(__configPath + 'db')();
@@ -44,7 +43,11 @@ app.use(app.oauth.errorHandler());
 
 
 // start server
-var server = app.listen(3000, function () {
+var server = app.listen(process.env.PORT || 5000, function () {
+
+  // configure websocket server
+  global.__wss = require(__configPath + 'websocket')(server);
+
   var host = server.address().address,
     port = server.address().port;
   console.log('server listening at http://%s:%s', host, port);

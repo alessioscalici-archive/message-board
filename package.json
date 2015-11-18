@@ -5,8 +5,12 @@
   "description": "A simple message board application",
   "repository": "https://github.com/alessioscalici/message-board",
   "license": "MIT",
-  "main": "server.js",
-  "devDependencies": {
+  "main": "server/index.js",
+  "engines": {
+    "node": "5.0.0",
+    "npm": "3.6.6"
+  },
+  "dependencies": {
     "bower": "^1.6.5",
     "cool-reporter": "^0.1.51",
     "del": "^2.0.2",
@@ -53,7 +57,15 @@
     "protractor": "^2.5.1",
     "shelljs": "^0.5.3",
     "stream-series": "^0.1.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "body-parser": "^1.13.3",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "lodash": "^3.10.1",
+    "nedb": "^1.4.0",
+    "oauth2-server": "^2.4.1",
+    "sha1": "^1.1.1",
+    "ws": "^0.8.0"
   },
   "scripts": {
     "gulp": "gulp",
@@ -64,17 +76,7 @@
     "dev": "gulp dev",
     "test": "gulp karma",
     "e2e": "protractor e2e-tests/conf/local.conf.js",
-    "postinstall": "bower install",
+    "postinstall": "node_modules/bower/bin/bower install",
     "start": "node server/index.js"
-  },
-  "dependencies": {
-    "body-parser": "^1.13.3",
-    "cors": "^2.7.1",
-    "express": "^4.13.3",
-    "lodash": "^3.10.1",
-    "nedb": "^1.4.0",
-    "oauth2-server": "^2.4.1",
-    "sha1": "^1.1.1",
-    "ws": "^0.8.0"
   }
 }
