@@ -39,7 +39,8 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
     $scope.postingMessage = true;
 
     MessageSvc.save({
-        text: $scope.newMessageText
+        text: $scope.newMessageText,
+        spinner: 'new-message-spinner'
       }).$promise
       .then(function () { // if success
 
@@ -87,8 +88,7 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
     }),
 
     // detach listeners on scope destroy
-    $scope.$on('$destroy', function () {
-      /* istanbul ignore next */
+    $scope.$on('$destroy', /* istanbul ignore next */ function () {
       angular.forEach(listeners, function (detach) {
         detach();
       });

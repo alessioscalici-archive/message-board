@@ -16,8 +16,9 @@ angular.module('Main').directive('spinner', function() {
     restrict: 'E',
     template: '<div class="loader">Loading...</div>',
     link: function (scope, element, attrs) {
-      element.addClass('ng-hide');
+      if (!attrs.startVisible || attrs.startVisible === 'false') {
+        element.addClass('ng-hide');
+      }
     }
   };
-
 });

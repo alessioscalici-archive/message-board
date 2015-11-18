@@ -5,6 +5,7 @@
       message-item(message='msg')
     li#message-bottom(smooth-scroll='')
   form#message-input
+    spinner#new-message-spinner
     input(type='text' ng-model='newMessageText' placeholder='Say something...')
     button#submit-text(type='submit' ng-click='postMsg()' ng-disabled='!newMessageText || postingMessage' aria-label='Send')
       span.glyphicon.glyphicon-share-alt

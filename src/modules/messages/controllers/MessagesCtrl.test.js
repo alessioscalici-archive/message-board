@@ -159,7 +159,7 @@ describe('MessagesCtrl', function () {
         $scope.postMsg();
  //       httpBackend.flush();
 
-        expect(s.MessageSvc.save).toHaveBeenCalledWith({ text: 'NEW MESSAGE TEXT' });
+        expect(s.MessageSvc.save).toHaveBeenCalledWith({ text: 'NEW MESSAGE TEXT', spinner: 'new-message-spinner' });
       });
 
 
