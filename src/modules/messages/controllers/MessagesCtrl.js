@@ -83,6 +83,12 @@ angular.module('messages').controller('MessagesCtrl', function ($scope, $log, $d
 
     // when receiving a new message notification from the web socket
     $scope.$on('WS_MESSAGE', function (ev, msg) {
+
+      // if the message is duplicate
+      if ($scope.messages.length && $scope.messages[$scope.messages.length - 1]._id === msg._id) {
+        return;
+      }
+
       $scope.messages.push(msg);
       scrollToLastMsg();
 
